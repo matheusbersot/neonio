@@ -1,0 +1,19 @@
+<h1>Criar Cidade</h1>
+
+<ul>
+  <% @city.errors.messages.each do |attrib, msg| %>
+      <li><%= msg.to_sentence %></li>
+  <% end %>
+</ul>
+
+<%= form_for @city do |f| %>
+    <%= f.label :name, "Nome:" %>
+    <%= f.text_field :name %><br/>
+    <% states_array = [["Selecione",""]]  %>
+    <% states_array += @states.map { |state| [state.name, state.id] } %>
+    <%= f.label :state_id, "Estado:" %>
+    <%= f.select :state_id, options_for_select(states_array) %><br/>
+    <%= f.submit "Criar" %>
+<% end %>
+
+<%= link_to 'Voltar', root_path %>

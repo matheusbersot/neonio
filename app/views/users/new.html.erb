@@ -1,0 +1,56 @@
+<h1>Criar Usuário</h1>
+
+<ul>
+  <% @user.errors.messages.each do |attrib, msg| %>
+      <li><%="#{t attrib} #{msg.to_sentence}"%></li>
+  <% end %>
+</ul>
+
+<%= form_for @user do |f| %>
+
+    <%= f.label :login, "Login:" %>
+    <%= f.text_field :login %><br/>
+
+    <%= f.label :passwordSHA1, "Senha:" %>
+    <%= f.password_field :passwordSHA1 %><br/>
+
+    <%= f.label :email, "E-mail:" %>
+    <%= f.text_field :email %><br/>
+
+    <%= f.label :company_name, "Nome da Empresa:" %>
+    <%= f.text_field :company_name %><br/>
+
+    <%= f.label :cnpj, "CNPJ:" %>
+    <%= f.text_field :cnpj %><br/>
+
+    <%= f.label :telephone1, "Telefone 1:" %>
+    <%= f.text_field :telephone1 %><br/>
+
+    <%= f.label :telephone2, "Telefone 2:" %>
+    <%= f.text_field :telephone2 %><br/>
+
+    <%= f.label :telephone3, "Telefone 3:" %>
+    <%= f.text_field :telephone3 %><br/>
+
+    <%= f.label :street_address, "Endereço:" %>
+    <%= f.text_field :street_address %><br/>
+
+    <%= f.label :number_address, "Número:" %>
+    <%= f.text_field :number_address %><br/>
+
+    <%= f.label :complement, "Complemento:" %>
+    <%= f.text_field :complement %><br/>
+
+    <%= f.label :district, "Bairro:" %>
+    <%= f.text_field :district %><br/>
+
+    <%= f.label :district, "CEP:" %>
+    <%= f.text_field :zip_code %><br/>
+
+    <%# Estado: <%= f.text_field :state_id %><br/>
+    <%#Cidade: <%= f.text_field :city_id %><br/>
+
+    <%= f.submit "Criar" %>
+<% end %>
+
+<%= link_to 'Voltar', root_path %>

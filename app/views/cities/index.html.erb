@@ -1,0 +1,20 @@
+<h1>Gerenciar Cidades</h1>
+<%= link_to "Criar", action: "new" %>
+
+<% if !@cities.empty? %>
+    <h1>Lista de Cidades</h1>
+    <table>
+      <th>Nome</th>
+      <th>Estado</th>
+      <th>Remover</th>
+      <% @cities.each do |city| %>
+      <tr>
+         <td><%=city.name%></td>
+         <td><%=city.state.acronym%></td>
+         <td><%= link_to "REMOVER", {action: "destroy", id: city} , method: :delete  %></td>
+      </tr>
+      <% end %>
+    </table>
+<% end %>
+
+<%= link_to 'Voltar', action: 'index' %>
