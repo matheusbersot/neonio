@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   attr_accessible :login, :passwordSHA1, :email, :company_name, :cnpj, :telephone1, :telephone2, :telephone3,
-                  :street_address, :number_address, :complement, :district, :city_id, :state_id, :zip_code, :active
+                  :street_address, :number_address, :complement, :district_id, :city_id, :state_id, :zip_code, :active
 
   #########  Relationships ###########
 
@@ -21,9 +21,10 @@ class User < ActiveRecord::Base
   validates :street_address, presence: true, length: { maximum: 100 }
   validates :number_address, presence: true, length:  { in: 1..5 }
   validates :complement, presence: true, length: { maximum: 100 }
-  validates :district, presence: true, length: { maximum: 20 }
   validates :zip_code, presence: true, length: { is: 8 }
   validates :active, presence: true
+
+  validates :district, presence: true
   validates :city, presence: true
   validates :state, presence: true
 end

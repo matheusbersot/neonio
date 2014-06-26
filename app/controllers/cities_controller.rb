@@ -10,13 +10,20 @@ class CitiesController < ApplicationController
   end
 
   def create
+    state_id = params[:city].delete :state_id
     @city = City.new(params[:city])
+
+    if !state_id.empty?
+      @city.state = State.find(state_id)
+    end
+
     if @city.save
-       redirect_to action: "index"
+      redirect_to action: "index"
     else
       @states = State.order :name
       render "new"
     end
+
   end
 
   def destroy

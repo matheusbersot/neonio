@@ -21,6 +21,7 @@ pt-BR:
   complement: "Complemento"
   district: "Bairro"
   zip_code: "CEP"
+  state: "Estado"
 
   date:
     abbr_day_names:
