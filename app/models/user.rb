@@ -1,12 +1,13 @@
 class User < ActiveRecord::Base
 
   attr_accessible :login, :passwordSHA1, :email, :company_name, :cnpj, :telephone1, :telephone2, :telephone3,
-                  :street_address, :number_address, :complement, :district_id, :city_id, :state_id, :zip_code, :active
+                  :street_address, :number_address, :complement, :zip_code, :active
 
   #########  Relationships ###########
 
   belongs_to :city
   belongs_to :state
+  belongs_to :district
 
   #########  Validations ###########
 
@@ -14,7 +15,7 @@ class User < ActiveRecord::Base
   validates :passwordSHA1, presence: true
   validates :email, presence: true
   validates :company_name, presence: true, length: { maximum: 100 }
-  validates :cnpj, presence: true, length: { is: 14 }, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
+  validates :cnpj, cnpj: true,  presence: true, length: { is: 14 }, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
   validates :telephone1, presence: true , length:  { in: 10..11 }, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
   validates :telephone2, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
   validates :telephone3, format: { with: /^[0-9]*$/, message: :msg_only_numbers }

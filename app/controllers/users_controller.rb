@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.state_id = 1
     @user.city_id = 1
+    @user.district_id = 1
     @user.active = true;
     if @user.save
       redirect_to action: "index"
