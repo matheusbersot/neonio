@@ -6,6 +6,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @states = State.joins(:cities).uniq.order :name
+    @cities = City.order :name
+    @districts = District.order :name
   end
 
   def create

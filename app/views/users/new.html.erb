@@ -41,14 +41,21 @@
     <%= f.label :complement, "Complemento:" %>
     <%= f.text_field :complement %><br/>
 
-    <%#= f.label :district, "Bairro:" %>
-    <%#= f.text_field :district %><br/>
+    <% states_array = @states.map { |state| [state.name, state.id] } %>
+    <%= f.label :state_id, "Estado:" %>
+    <%= f.select :state_id, options_for_select(states_array, :selected => @user.state_id), {include_blank: 'Selecione'} %><br/>
+
+    <% cities_array = @cities.map { |city| [city.name, city.id] } %>
+    <%= f.label :city, "Cidade:" %>
+    <%= f.select :city_id, options_for_select(cities_array, :selected => @user.city_id), {include_blank: 'Selecione'} %><br/>
+
+    <% districts_array = @districts.map { |district| [district.name, district.id] } %>
+    <%= f.label :district, "Bairro:" %>
+    <%= f.select :district_id, options_for_select(districts_array, :selected => @user.district_id), {include_blank: 'Selecione'} %><br/>
 
     <%= f.label :zip_code, "CEP:" %>
     <%= f.text_field :zip_code %><br/>
 
-    <%# Estado: <%= f.text_field :state_id %><br/>
-    <%#Cidade: <%= f.text_field :city_id %><br/>
 
     <%= f.submit "Criar" %>
 <% end %>
