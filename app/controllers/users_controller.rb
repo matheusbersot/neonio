@@ -12,14 +12,32 @@ class UsersController < ApplicationController
   end
 
   def create
+    binding.pry
+    state_id = params[:user].delete :state_id
+    city_id = params[:user].delete :city_id
+    district_id = params[:user].delete :district_id
+
     @user = User.new(params[:user])
-    @user.state_id = 1
-    @user.city_id = 1
-    @user.district_id = 1
+
+    if !state_id.empty?
+      @user.state = State.find(state_id)
+    end
+
+    if !city_id.empty?
+      @user.city = City.find(city_id)
+    end
+
+    if !district_id.empty?
+      @user.district = District.find(district_id)
+    end
+
     @user.active = true;
     if @user.save
       redirect_to action: "index"
     else
+      @states = State.joins(:cities).uniq.order :name
+      @cities = City.order :name
+      @districts = District.order :name
       render "new"
     end
   end

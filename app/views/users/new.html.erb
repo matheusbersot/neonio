@@ -2,7 +2,7 @@
 
 <ul>
   <% @user.errors.messages.each do |attrib, msg| %>
-      <li><%="#{t attrib} #{msg.to_sentence}"%></li>
+      <li><%="O campo #{t attrib} #{msg.to_sentence}"%></li>
   <% end %>
 </ul>
 
