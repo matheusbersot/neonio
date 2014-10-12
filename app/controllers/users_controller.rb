@@ -7,8 +7,9 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @states = State.joins(:cities).uniq.order :name
-    @cities = City.order :name
-    @districts = District.order :name
+
+    @cities = {} #City.order :name
+    @districts = {} #District.order :name
   end
 
   def create
@@ -46,5 +47,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     redirect_to action: "index"
+  end
+
+  def get_cities_by_state
+    @cities = State.find(params[:state_id]).cities
+  end
+
+  def get_districts_by_city
+    @districts = City.find(params[:city_id]).districts
   end
 end

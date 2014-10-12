@@ -60,4 +60,9 @@ Neonio::Application.routes.draw do
 
   resources :cities
   resources :users
+
+  get '/get_cities_by_state', to: 'users#get_cities_by_state'
+  get '/get_districts_by_city', to: 'users#get_districts_by_city'
+
+
 end
