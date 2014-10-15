@@ -12,14 +12,15 @@ class UsersController < ApplicationController
     @state_acronym = ""
     @city_name = ""
     @district_name = ""
-    @disabled = true
   end
 
   def create
-    binding.pry
     @state_acronym = params[:user].delete :state_id
     @city_name = params[:user].delete :city_id
     @district_name = params[:user].delete :district_id
+
+    @cities = {}
+    @districts = {}
 
     @user = User.new(params[:user])
 
@@ -29,10 +30,12 @@ class UsersController < ApplicationController
 
     if @city_name && !@city_name.empty?
       @user.city = City.find_by_name(@city_name)
+      @cities = @user.state.cities.order(:name) if @user.state
     end
 
     if @district_name && !@district_name.empty?
       @user.district = District.find_by_name(@district_name)
+      @districts = @user.city.districts.order(:name) if @user.city
     end
 
     @user.active = true;
@@ -40,9 +43,6 @@ class UsersController < ApplicationController
       redirect_to action: "index"
     else
       @states = State.joins(:cities).uniq.order :name
-      @cities = @user.state.cities.order(:name) if @user.state
-      @districts = @user.city.districts.order(:name) if @user.city
-      @disabled = false
       render "new"
     end
   end

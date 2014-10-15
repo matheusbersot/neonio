@@ -49,11 +49,11 @@
 
     <% cities_array = @cities.map { |city| [city.name, city.name] } %>
     <%= f.label :city, "Cidade:" %>
-    <%= f.select :city_id, options_for_select(cities_array,  @city_name) , {:prompt => 'Selecione'}, { :id => 'user_city', :disabled => @disabled} %><br/>
+    <%= f.select :city_id, options_for_select(cities_array,  @city_name) , {:prompt => 'Selecione'}, { :id => 'user_city', :disabled => @user.city.nil?} %><br/>
 
     <% districts_array = @districts.map { |district| [district.name, district.name] } %>
     <%= f.label :district, "Bairro:" %>
-    <%= f.select :district_id, options_for_select(districts_array,  @district_name) ,{:prompt => 'Selecione'}, { :id => 'user_district', :disabled => @disabled} %><br/>
+    <%= f.select :district_id, options_for_select(districts_array,  @district_name) ,{:prompt => 'Selecione'}, { :id => 'user_district', :disabled => @user.district.nil?} %><br/>
 
     <%= f.label :zip_code, "CEP:" %>
     <%= f.text_field :zip_code %><br/>
