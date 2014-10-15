@@ -7,29 +7,31 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @states = State.joins(:cities).uniq.order :name
-
-    @cities = {} #City.order :name
-    @districts = {} #District.order :name
+    @cities = {}
+    @districts = {}
+    @state_acronym = ""
+    @city_name = ""
+    @district_name = ""
+    @disabled = true
   end
 
   def create
-    binding.pry
-    state_id = params[:user].delete :state_id
-    city_id = params[:user].delete :city_id
-    district_id = params[:user].delete :district_id
+    @state_acronym = params[:user].delete :state_id
+    @city_name = params[:user].delete :city_id
+    @district_name = params[:user].delete :district_id
 
     @user = User.new(params[:user])
 
-    if !state_id.empty?
-      @user.state = State.find(state_id)
+    if !@state_acronym.empty?
+      @user.state = State.find_by_acronym(@state_acronym)
     end
 
-    if !city_id.empty?
-      @user.city = City.find(city_id)
+    if @city_name && !@city_name.empty?
+      @user.city = City.find_by_name(@city_name)
     end
 
-    if !district_id.empty?
-      @user.district = District.find(district_id)
+    if @district_name && !@district_name.empty?
+      @user.district = District.find_by_name(@district_name)
     end
 
     @user.active = true;
@@ -37,8 +39,9 @@ class UsersController < ApplicationController
       redirect_to action: "index"
     else
       @states = State.joins(:cities).uniq.order :name
-      @cities = City.order :name
-      @districts = District.order :name
+      @cities = @user.state.cities.order :name
+      @districts = @user.city.districts.order :name
+      @disabled = false
       render "new"
     end
   end
@@ -50,10 +53,10 @@ class UsersController < ApplicationController
   end
 
   def get_cities_by_state
-    @cities = State.find(params[:state_id]).cities
+    @cities = State.find_by_acronym(params[:state_id]).cities
   end
 
   def get_districts_by_city
-    @districts = City.find(params[:city_id]).districts
+    @districts = City.find_by_name(params[:city_id]).districts
   end
 end

@@ -26,6 +26,8 @@ $(document).ready(function() {
             },
             dataType: "script"
         });
+        $("#user_district").append('<option value="" selected >Selecione</option>');
+        $('#user_district').attr("disabled", "disabled");
     });
 
     $('#user_city').change(function() {
@@ -37,6 +39,7 @@ $(document).ready(function() {
             },
             dataType: "script"
         });
+
     });
 });
 

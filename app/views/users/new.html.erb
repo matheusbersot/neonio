@@ -43,18 +43,20 @@
     <%= f.label :complement, "Complemento:" %>
     <%= f.text_field :complement %><br/>
 
+    <% states_array = @states.map { |state| [state.name, state.acronym] } %>
     <%= f.label :state_id, "Estado:" %>
-    <%= f.select :state_id, @states.map { |state| [state.name, state.id] }, {:prompt => 'Selecione'}, { :id => 'user_state'} %><br/>
+    <%= f.select :state_id, options_for_select(states_array, @state_acronym) , {:prompt => 'Selecione'}, { :id => 'user_state'} %><br/>
 
+    <% cities_array = @cities.map { |city| [city.name, city.name] } %>
     <%= f.label :city, "Cidade:" %>
-    <%= f.select :city_id, @cities.map { |city| [city.name, city.id] } , {:prompt => 'Selecione'}, { :id => 'user_city', :disabled => true} %><br/>
+    <%= f.select :city_id, options_for_select(cities_array,  @city_name) , {:prompt => 'Selecione'}, { :id => 'user_city', :disabled => @disabled} %><br/>
 
+    <% districts_array = @districts.map { |district| [district.name, district.name] } %>
     <%= f.label :district, "Bairro:" %>
-    <%= f.select :district_id, @districts.map { |district| [district.name, district.id] } ,{:prompt => 'Selecione'}, { :id => 'user_district', :disabled => true} %><br/>
+    <%= f.select :district_id, options_for_select(districts_array,  @district_name) ,{:prompt => 'Selecione'}, { :id => 'user_district', :disabled => @disabled} %><br/>
 
     <%= f.label :zip_code, "CEP:" %>
     <%= f.text_field :zip_code %><br/>
-
 
     <%= f.submit "Criar" %>
 <% end %>
