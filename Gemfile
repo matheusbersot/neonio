@@ -21,8 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-#gem 'jquery-inputmask-rails'
-#gem 'inputmask-multi-rails'
+gem 'jquery-inputmask-rails'
 
 
 group :development, :test do

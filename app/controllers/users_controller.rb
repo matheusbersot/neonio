@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    binding.pry
     @state_acronym = params[:user].delete :state_id
     @city_name = params[:user].delete :city_id
     @district_name = params[:user].delete :district_id
@@ -39,8 +40,8 @@ class UsersController < ApplicationController
       redirect_to action: "index"
     else
       @states = State.joins(:cities).uniq.order :name
-      @cities = @user.state.cities.order :name
-      @districts = @user.city.districts.order :name
+      @cities = @user.state.cities.order(:name) if @user.state
+      @districts = @user.city.districts.order(:name) if @user.city
       @disabled = false
       render "new"
     end
