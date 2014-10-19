@@ -1,31 +1,50 @@
+#encoding: UTF-8
+
 class User < ActiveRecord::Base
 
-  attr_accessible :login, :passwordSHA1, :email, :company_name, :cnpj, :telephone1, :telephone2, :telephone3,
-                  :street_address, :number_address, :complement, :zip_code, :active
+  has_secure_password
+
+  attr_accessible :name,:password, :password_confirmation, :email
 
   #########  Relationships ###########
 
-  belongs_to :city
-  belongs_to :state
-  belongs_to :district
+  belongs_to    :profile
+  has_one       :store
+
+  #Auto Relationship
+  belongs_to    :manager, class_name: "User"
+  has_many      :employees, class_name: "User", foreign_key: "manager_id"
+
 
   #########  Validations ###########
 
-  validates :login, presence: true, length: { maximum: 20 }, uniqueness: { case_sensitive: false }
-  validates :passwordSHA1, presence: true
+  validates :name, presence: true, length: { maximum: 20 }, uniqueness: { case_sensitive: false }
+  validates :password, length: { minimum: 8 }
   validates :email, presence: true
-  validates :company_name, presence: true, length: { maximum: 100 }
-  validates :cnpj, cnpj: true,  presence: true, length: { is: 14 }, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
-  validates :telephone1, presence: true , length:  { in: 10..11 }, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
-  validates :telephone2, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
-  validates :telephone3, format: { with: /^[0-9]*$/, message: :msg_only_numbers }
-  validates :street_address, presence: true, length: { maximum: 100 }
-  validates :number_address, presence: true, length:  { in: 1..5 }
-  validates :complement, presence: true, length: { maximum: 100 }
-  validates :zip_code, presence: true, length: { is: 8 }
-  validates :active, presence: true
 
-  validates :district, presence: true
-  validates :city, presence: true
-  validates :state, presence: true
+  validates :profile, presence: true
+
+  #####################################
+
+  #instance_method
+  def system_admin?
+    :profile_id == Profile::SYSTEM_ADMIN_PROFILE
+  end
+
+  def store_admin?
+    :profile_id == Profile::STORE_ADMIN_PROFILE
+  end
+
+  def store_seller?
+    :profile_id == Profile::STORE_SELLER_PROFILE
+  end
+
+  # method with self before its name, it is considered CLASS METHOD (like static method in JAVA)
+  def self.authenticate(username, password)
+    user = User.find_by_name(username)
+    unless user && user.authenticate(password)
+      raise "Usuário ou senha inválido."
+    end
+    user
+  end
 end

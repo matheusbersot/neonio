@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  has_secure_password
+
   def index
     @users = User.order :company_name
   end
@@ -59,5 +61,16 @@ class UsersController < ApplicationController
 
   def get_districts_by_city
     @districts = City.find_by_name(params[:city_id]).districts
+  end
+
+  def new_store_admin
+    @user = User.new
+    @user.store = Store.new
+    @states = State.joins(:cities).uniq.order :name
+    @cities = {}
+    @districts = {}
+    @state_acronym = ""
+    @city_name = ""
+    @district_name = ""
   end
 end

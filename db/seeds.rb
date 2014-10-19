@@ -369,4 +369,16 @@ district_list.each do |name, city_name, state_acronym|
   c.districts.create(name: name)
 end
 
+profiles_list = [ "ADM_SISTEMA", "ADM_LOJA", "ADM_VENDEDOR"]
+profiles_list.each do |name|
+  s = Profile.create(name: name)
+end
 
+admin_list =  [
+                [ "matheusbersot", "12345678", "12345678", "a@a.com", Profile::STORE_ADMIN_PROFILE]
+              ]
+admin_list.each do |name, password, password_confirmation, email, profile |
+  s = User.create(name: name, password: password, password_confirmation: password_confirmation, email: email)
+  s.profile_id = profile
+  s.save!
+end

@@ -29,6 +29,7 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     arel (3.0.3)
+    bcrypt-ruby (3.0.1)
     builder (3.0.4)
     coderay (1.1.0)
     coffee-rails (3.2.2)
@@ -85,6 +86,7 @@ GEM
       activesupport (= 3.2.17)
       bundler (~> 1.0)
       railties (= 3.2.17)
+    rails_serve_static_assets (0.0.2)
     railties (3.2.17)
       actionpack (= 3.2.17)
       activesupport (= 3.2.17)
@@ -120,6 +122,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 3.2.1)
   jquery-inputmask-rails
   jquery-rails
@@ -127,5 +130,6 @@ DEPENDENCIES
   pry
   pry-debugger
   rails (= 3.2.17)
+  rails_serve_static_assets
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)
