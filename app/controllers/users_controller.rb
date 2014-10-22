@@ -1,48 +1,26 @@
 class UsersController < ApplicationController
 
-  has_secure_password
-
   def index
-    @users = User.order :company_name
+    @users = User.order :name
   end
 
   def new
     @user = User.new
-    @states = State.joins(:cities).uniq.order :name
-    @cities = {}
-    @districts = {}
-    @state_acronym = ""
-    @city_name = ""
-    @district_name = ""
+    @form_type = params[:form_type]
+    if @form_type == "#{User::STORE_ADMIN_FORM}"
+      new_store_admin()
+    end
   end
 
   def create
-    @state_acronym = params[:user].delete :state_id
-    @city_name = params[:user].delete :city_id
-    @district_name = params[:user].delete :district_id
-
-    @cities = {}
-    @districts = {}
-
-    @user = User.new(params[:user])
-
-    if !@state_acronym.empty?
-      @user.state = State.find_by_acronym(@state_acronym)
+    binding.pry
+    @form_type = params[:form_type]
+    if  @form_type == "#{User::STORE_ADMIN_FORM}"
+      create_store_admin()
     end
 
-    if @city_name && !@city_name.empty?
-      @user.city = City.find_by_name(@city_name)
-      @cities = @user.state.cities.order(:name) if @user.state
-    end
-
-    if @district_name && !@district_name.empty?
-      @user.district = District.find_by_name(@district_name)
-      @districts = @user.city.districts.order(:name) if @user.city
-    end
-
-    @user.active = true;
     if @user.save
-      redirect_to action: "index"
+      redirect_to action: "application#admin"
     else
       @states = State.joins(:cities).uniq.order :name
       render "new"
@@ -56,6 +34,7 @@ class UsersController < ApplicationController
   end
 
   def get_cities_by_state
+    binding.pry
     @cities = State.find_by_acronym(params[:state_id]).cities
   end
 
@@ -64,7 +43,6 @@ class UsersController < ApplicationController
   end
 
   def new_store_admin
-    @user = User.new
     @user.store = Store.new
     @states = State.joins(:cities).uniq.order :name
     @cities = {}
@@ -73,4 +51,38 @@ class UsersController < ApplicationController
     @city_name = ""
     @district_name = ""
   end
+
+  def create_store_admin
+    binding.pry
+
+    store = params[:user].delete :store
+    @state_acronym = store.delete :state_id
+    @city_name = store.delete :city_id
+    @district_name = store.delete :district_id
+
+    @user = User.new(params[:user])
+    @user.profile = Profile.find(Profile::STORE_ADMIN_PROFILE)
+    @user.password_digest = @user.password
+
+    @user.store = Store.new( store )
+
+    @cities = {}
+    @districts = {}
+
+    if !@state_acronym.empty?
+      @user.store.state = State.find_by_acronym(@state_acronym)
+    end
+
+    if @city_name && !@city_name.empty?
+      @user.store.city = City.find_by_name(@city_name)
+      @cities = @user.store.state.cities.order(:name) if @user.store.state
+    end
+
+    if @district_name && !@district_name.empty?
+      @user.store_district = District.find_by_name(@district_name)
+      @districts = @user.store.city.districts.order(:name) if @user.store.city
+    end
+
+  end
+
 end

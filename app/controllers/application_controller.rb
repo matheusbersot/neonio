@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
   end
 
   def login_filter
-    binding.pry
     unless user_logged_in?
         if action_name == "index" && controller_name == "application"
           render "index"
@@ -54,7 +53,6 @@ class ApplicationController < ActionController::Base
   end
 
   def logout
-    binding.pry
     session[:user_id] = nil
     reset_session
     redirect_to root_path

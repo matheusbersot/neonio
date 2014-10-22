@@ -24,7 +24,11 @@ class User < ActiveRecord::Base
 
   validates :profile, presence: true
 
-  #####################################
+  ########### Constants #############
+  STORE_ADMIN_FORM = 1
+  SELLER_FORM = 2
+
+  #########  Methods ###########
 
   #instance_method
   def system_admin?

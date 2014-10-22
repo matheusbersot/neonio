@@ -8,7 +8,6 @@ gem 'rails', '3.2.17'
 
 gem 'mysql2'
 gem 'rails_serve_static_assets' #gem colocada para que funcione jquery no Heroku
-gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -32,7 +31,7 @@ group :development, :test do
 end
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

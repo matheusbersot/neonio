@@ -1,20 +1,10 @@
-<h1>Criar Administrador da Loja</h1>
+<%= form_for @user do |f| %>
 
-<ul>
-  <% if @user %>
-      <% @user.errors.messages.each do |attrib, msg| %>
-          <li><%="O campo #{t attrib} #{msg.to_sentence}"%></li>
-      <% end %>
-  <% end %>
-</ul>
+    <%= f.label :name, "Login:" %>
+    <%= f.text_field :name %><br/>
 
-<%= form_for @user, :url => { :action => "create_store_admin" } do |f| %>
-
-    <%= f.label :login, "Login:" %>
-    <%= f.text_field :login %><br/>
-
-    <%= f.label :passwordSHA1, "Senha:" %>
-    <%= f.password_field :passwordSHA1 %><br/>
+    <%= f.label :password, "Senha:" %>
+    <%= f.password_field :password %><br/>
 
     <%= f.label :email, "E-mail:" %>
     <%= f.text_field :email %><br/>
@@ -54,11 +44,13 @@
 
         <% cities_array = @cities.map { |city| [city.name, city.name] } %>
         <%= ff.label :city_id, "Cidade:" %>
-        <%= ff.select :city_id, options_for_select(cities_array,  @city_name) , {:prompt => 'Selecione'}, { :id => 'user_city', :disabled => @user.store.city.nil?} %><br/>
+        <%= ff.select :city_id, options_for_select(cities_array,  @city_name) , {:prompt => 'Selecione'}, { :id => 'user_city', :disabled => @user.store.nil? || @user.store.city.nil?} %><br/>
 
         <% districts_array = @districts.map { |district| [district.name, district.name] } %>
         <%= ff.label :district_id, "Bairro:" %>
-        <%= ff.select :district_id, options_for_select(districts_array,  @district_name) ,{:prompt => 'Selecione'}, { :id => 'user_district', :disabled => @user.store.district.nil?} %><br/>
+        <%= ff.select :district_id, options_for_select(districts_array,  @district_name) ,{:prompt => 'Selecione'}, { :id => 'user_district', :disabled =>  @user.store.nil? || @user.store.district.nil?} %><br/>
+
+        <%= hidden_field_tag :form_type, @form_type %><br/>
 
     <% end %>
 
@@ -67,4 +59,3 @@
 <% end %>
 
 
-<%= link_to 'Voltar', root_path %>

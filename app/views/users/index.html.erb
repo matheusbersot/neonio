@@ -4,13 +4,13 @@
 <% if !@users.empty? %>
     <h1>Lista de Usuários</h1>
     <table>
-      <th>Nome da Empresa</th>
-      <th>CNPJ</th>
+      <th>Nome</th>
+      <th>Tipo</th>
       <th>Remover</th>
       <% @users.each do |user| %>
           <tr>
-            <td><%=user.company_name%></td>
-            <td><%=user.cnpj%></td>
+            <td><%=user.name%></td>
+            <td><%=user.profile.name%></td>
             <td><%= link_to "REMOVER", {action: "destroy", id: user} , method: :delete  %></td>
           </tr>
       <% end %>

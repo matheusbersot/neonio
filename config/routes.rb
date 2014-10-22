@@ -65,11 +65,6 @@ Neonio::Application.routes.draw do
   resources :cities
   resources :users
 
-  get '/users/new_store_admin', to: 'users#new_store_admin'
-  get '/users/create_store_admin', to: 'users#create_store_admin'
-
-  get '/users/store_admin/new', to: 'users#new_store_admin'
-
   get '/get_cities_by_state', to: 'users#get_cities_by_state'
   get '/get_districts_by_city', to: 'users#get_districts_by_city'
 
