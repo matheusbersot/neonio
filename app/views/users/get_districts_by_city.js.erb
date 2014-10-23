@@ -1,0 +1,9 @@
+/**
+ * Created by matheus on 11/10/14.
+ */
+<% districts_array = (@districts.order(:name)).map { |district| [district.name, district.name] } %>;
+
+$('#user_district').html('<option value="" selected>Selecione</option>');
+$('#user_district').append("<%= escape_javascript(options_for_select(districts_array))%>");
+$('#user_district').removeAttr('disabled');
+

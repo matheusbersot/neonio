@@ -1,0 +1,9 @@
+/**
+ * Created by matheus on 11/10/14.
+ */
+<% cities_array = (@cities.order(:name)).map { |city| [city.name, city.name] } %>;
+
+$('#user_city').html('<option value="" selected>Selecione</option>');
+$('#user_city').append("<%= escape_javascript(options_for_select(cities_array))%>");
+$('#user_city').removeAttr('disabled');
+
