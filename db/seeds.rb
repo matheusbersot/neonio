@@ -369,7 +369,7 @@ district_list.each do |name, city_name, state_acronym|
   c.districts.create(name: name)
 end
 
-profiles_list = [ "ADM_SISTEMA", "ADM_LOJA", "ADM_VENDEDOR"]
+profiles_list = [ "ADM_SISTEMA", "ADM_LOJA", "VENDEDOR"]
 profiles_list.each do |name|
   s = Profile.create(name: name)
 end

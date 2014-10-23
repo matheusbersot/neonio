@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   belongs_to    :profile
   has_one       :store
+  accepts_nested_attributes_for :store
+
 
   #Auto Relationship
   belongs_to    :manager, class_name: "User"
@@ -24,7 +26,7 @@ class User < ActiveRecord::Base
 
   validates :profile, presence: true
 
-  ########### Constants #############
+   ########### Constants #############
   STORE_ADMIN_FORM = 1
   SELLER_FORM = 2
 

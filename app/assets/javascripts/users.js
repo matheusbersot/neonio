@@ -34,10 +34,10 @@ $(document).ready(function() {
     var mask_telephone = '(99) 9999-9999[9]';
     var mask_telephone_8_digits = '(99) 9999-9999[9]';
     var mask_mobile = '(99) 9999[9]-9999';
-    $("#user_telephone1").inputmask(mask_telephone);
-    $("#user_telephone2").inputmask(mask_telephone);
-    $("#user_telephone3").inputmask(mask_telephone);
-    $("#user_cnpj").inputmask("99.999.999/9999-99");
+    $("#user_store_attributes_telephone1").inputmask(mask_telephone);
+    $("#user_store_attributes_telephone2").inputmask(mask_telephone);
+    $("#user_store_attributes_telephone3").inputmask(mask_telephone);
+    $("#user_store_attributes_cnpj").inputmask("99.999.999/9999-99");
 
     function change_mask(label)
     {
@@ -54,36 +54,36 @@ $(document).ready(function() {
         $(label).val(value);
     }
 
-    $("#user_telephone1").blur(function() {
-        change_mask("#user_telephone1");
+    $("#user_store_attributes_telephone1").blur(function() {
+        change_mask("#user_store_attributes_telephone1");
     });
 
-    $("#user_telephone2").blur(function() {
-        change_mask("#user_telephone2");
+    $("#user_store_attributes_telephone2").blur(function() {
+        change_mask("#user_store_attributes_telephone2");
     });
 
-    $("#user_telephone3").blur(function() {
-        change_mask("#user_telephone3");
+    $("#user_store_attributes_telephone3").blur(function() {
+        change_mask("#user_store_attributes_telephone3");
     });
 
-    $("#user_telephone1").focus(function() {
-        $("#user_telephone1").inputmask(mask_telephone);
+    $("#user_store_attributes_telephone1").focus(function() {
+        $("#user_store_attributes_telephone1").inputmask(mask_telephone);
     });
 
-    $("#user_telephone2").focus(function() {
-        $("#user_telephone2").inputmask(mask_telephone);
+    $("#user_store_attributes_telephone2").focus(function() {
+        $("#user_store_attributes_telephone2").inputmask(mask_telephone);
     });
 
-    $("#user_telephone3").focus(function() {
-        $("#user_telephone3").inputmask(mask_telephone);
+    $("#user_store_attributes_telephone3").focus(function() {
+        $("#user_store_attributes_telephone3").inputmask(mask_telephone);
     });
 
     $("#new_user").submit(function()
     {
-        $("#user_telephone1").inputmask('remove');
-        $("#user_telephone2").inputmask('remove');
-        $("#user_telephone3").inputmask('remove');
-        $("#user_cnpj").inputmask('remove');
+        $("#user_store_attributes_telephone1").inputmask('remove');
+        $("#user_store_attributes_telephone2").inputmask('remove');
+        $("#user_store_attributes_telephone3").inputmask('remove');
+        $("#user_store_attributes_cnpj").inputmask('remove');
     });
 });
 

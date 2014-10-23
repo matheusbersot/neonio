@@ -13,15 +13,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    binding.pry
     @form_type = params[:form_type]
     if  @form_type == "#{User::STORE_ADMIN_FORM}"
-      create_store_admin()
+      create_store_admin
+    else
+      create_seller
     end
 
     if @user.save
       redirect_to action: "application#admin"
     else
+      binding.pry
       @states = State.joins(:cities).uniq.order :name
       render "new"
     end
@@ -34,7 +36,6 @@ class UsersController < ApplicationController
   end
 
   def get_cities_by_state
-    binding.pry
     @cities = State.find_by_acronym(params[:state_id]).cities
   end
 
@@ -53,18 +54,16 @@ class UsersController < ApplicationController
   end
 
   def create_store_admin
-    binding.pry
-
-    store = params[:user].delete :store
+    store = params[:user].delete :store_attributes
     @state_acronym = store.delete :state_id
     @city_name = store.delete :city_id
     @district_name = store.delete :district_id
 
     @user = User.new(params[:user])
     @user.profile = Profile.find(Profile::STORE_ADMIN_PROFILE)
-    @user.password_digest = @user.password
 
     @user.store = Store.new( store )
+    @user.store.user = @user
 
     @cities = {}
     @districts = {}
@@ -79,10 +78,14 @@ class UsersController < ApplicationController
     end
 
     if @district_name && !@district_name.empty?
-      @user.store_district = District.find_by_name(@district_name)
+      @user.store.district = District.find_by_name(@district_name)
       @districts = @user.store.city.districts.order(:name) if @user.store.city
     end
+  end
 
+  def create_seller
+    @user = User.new(params[:user])
+    @user.profile = Profile.find(Profile::STORE_SELLER_PROFILE)
   end
 
 end

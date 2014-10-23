@@ -1,7 +1,7 @@
 class CnpjValidator < ActiveModel::EachValidator
   def validate_each(object, attribute, value)
     unless is_cnpj_valid?(value)
-      object.errors[attribute] << (options[:message] || :msg_cnpj_invalid)
+      object.errors[attribute] << (options[:message] || :msg_invalid_cnpj)
     end
   end
 

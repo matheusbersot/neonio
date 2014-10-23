@@ -1,27 +1,29 @@
 #encoding: utf-8
 
 pt-BR:
-
-  msg_cnpj_invalid: "CNPJ inválido."
-
-
-  city: "Cidade"
-  name: "Nome"
-  user: "Usuário"
-  login: "Login"
-  passwordSHA1: "Senha"
-  email: "E-mail"
-  company_name: "Nome da Empresa"
-  cnpj: "CNPJ"
-  telephone1: "Telefone 1"
-  telephone2: "Telefone 2"
-  telephone3: "Telefone 3"
-  street_address: "Endereço"
-  number_address: "Número"
-  complement: "Complemento"
-  district: "Bairro"
-  zip_code: "CEP"
-  state: "Estado"
+  activerecord:
+    attributes:
+      user:
+        name: Login
+        password: Senha
+        email: E-mail
+      store:
+        city: Cidade
+        name: Nome
+        cnpj: CNPJ
+        telephone1: Telefone 1
+        telephone2: Telefone 2
+        telephone3: Telefone 3
+        street_address: Endereço
+        number_address: Número
+        complement: Complemento
+        district: Bairro
+        zip_code: CEP
+        state: Estado
+    errors:
+      models:
+        store:
+          msg_invalid_cnpj: This is i18n controlled. yay!
 
   date:
     abbr_day_names:
@@ -141,14 +143,15 @@ pt-BR:
       odd: deve ser ímpar
       record_invalid: ! 'A validação falhou: %{errors}'
       restrict_dependent_destroy:
-        one: "Não é possível excluir o registro pois existe um %{record} dependente"
-        many: "Não é possível excluir o registro pois existem %{record} dependentes"
+        one: Não é possível excluir o registro pois existe um %{record} dependente
+        many: Não é possível excluir o registro pois existem %{record} dependentes
       taken: já está em uso
       too_long: ! 'é muito longo (máximo: %{count} caracteres)'
       too_short: ! 'é muito curto (mínimo: %{count} caracteres)'
       wrong_length: não possui o tamanho esperado (%{count} caracteres)
+      msg_only_numbers: deve ser preenchido somente com números.
+      msg_invalid_cnpj: inválido
 
-      msg_only_numbers: "deve ser preenchido somente com números."
 
     template:
       body: ! 'Por favor, verifique o(s) seguinte(s) campo(s):'
