@@ -86,7 +86,6 @@ GEM
       activesupport (= 3.2.17)
       bundler (~> 1.0)
       railties (= 3.2.17)
-    rails_serve_static_assets (0.0.2)
     railties (3.2.17)
       actionpack (= 3.2.17)
       activesupport (= 3.2.17)
@@ -97,6 +96,7 @@ GEM
     rake (10.3.2)
     rdoc (3.12.2)
       json (~> 1.4)
+    recaptcha (0.3.6)
     sass (3.3.8)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -130,6 +130,6 @@ DEPENDENCIES
   pry
   pry-debugger
   rails (= 3.2.17)
-  rails_serve_static_assets
+  recaptcha
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)

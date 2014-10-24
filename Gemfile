@@ -7,7 +7,8 @@ gem 'rails', '3.2.17'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'rails_serve_static_assets' #gem colocada para que funcione jquery no Heroku
+gem "recaptcha", :require => "recaptcha/rails"
+
 
 # Gems used only for assets and not required
 # in production environments by default.

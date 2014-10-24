@@ -20,10 +20,9 @@ class UsersController < ApplicationController
       create_seller
     end
 
-    if @user.save
+    if verify_recaptcha(:model => @user, :message => "Oh! It's error with reCAPTCHA!") && @user.save
       redirect_to action: "application#admin"
     else
-      binding.pry
       @states = State.joins(:cities).uniq.order :name
       render "new"
     end
