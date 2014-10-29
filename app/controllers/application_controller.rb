@@ -1,9 +1,11 @@
+#encoding : utf-8
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
   #helper_method allows methods to be called from views
   helper_method :current_session, :current_user, :user_logged_in?
-  before_filter :login_filter, :except => [:login]
+  before_filter :login_filter, :except => [:login, :logout]
 
   def index
     render "index"
@@ -30,16 +32,18 @@ class ApplicationController < ActionController::Base
   end
 
   def login_filter
+    binding.pry
     unless user_logged_in?
-        if action_name == "index" && controller_name == "application"
-          render "index"
-        else
-          redirect_to root_path
-        end
-     end
+      render "index"
+    else
+      if action_name == "index" && controller_name == "application"
+        render "admin"
+      end
+    end
   end
 
   def login
+    binding.pry
     unless user_logged_in?
       begin
         user_id = (User.authenticate(params[:username], params[:password])).id
@@ -47,15 +51,18 @@ class ApplicationController < ActionController::Base
         redirect_to admin_path
       rescue Exception => e
         flash[:error] = e.message
-        redirect_to root_path
+        render "index"
       end
     end
   end
 
   def logout
-    session[:user_id] = nil
-    reset_session
-    redirect_to root_path
+    if user_logged_in?
+      session[:user_id] = nil
+      reset_session
+      redirect_to root_path
+    end
   end
 
 end
+

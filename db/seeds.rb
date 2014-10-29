@@ -375,7 +375,7 @@ profiles_list.each do |name|
 end
 
 admin_list =  [
-                [ "matheusbersot", "12345678", "12345678", "a@a.com", Profile::STORE_ADMIN_PROFILE]
+                [ "matheusbersot", "12345678", "12345678", "a@a.com", Profile::SYSTEM_ADMIN_PROFILE]
               ]
 admin_list.each do |name, password, password_confirmation, email, profile |
   s = User.create(name: name, password: password, password_confirmation: password_confirmation, email: email)
