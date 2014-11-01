@@ -1,5 +1,4 @@
 <h1>Gerenciar Usuários</h1>
-<%= link_to "Criar", action: "new" %>
 
 <% if !@users.empty? %>
     <h1>Lista de Usuários</h1>
@@ -11,6 +10,9 @@
           <tr>
             <td><%=user.name%></td>
             <td><%=user.profile.name%></td>
+            <% if user.profile.id == Profile::STORE_ADMIN_PROFILE %>
+               <td><%= link_to "EDITAR", {action: "edit", id: user} %></td>
+            <% end %>
             <td><%= link_to "REMOVER", {action: "destroy", id: user} , method: :delete  %></td>
           </tr>
       <% end %>

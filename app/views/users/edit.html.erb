@@ -1,0 +1,68 @@
+<h1>Editar Dados do Usuário</h1>
+
+<ul>
+  <% if @user %>
+      <% @user.errors.messages.each do |attrib, msg| %>
+          <li><%="O campo #{t attrib} #{msg.to_sentence}"%></li>
+      <% end %>
+  <% end %>
+</ul>
+
+
+<%= form_for @user do |f| %>
+
+    <%= f.label :email, "E-mail:" %>
+    <%= f.text_field :email %><br/>
+
+    <%= f.fields_for :store do |ff| %>
+
+        <%= ff.label :name, "Nome da Loja:" %>
+        <%= ff.text_field :name %><br/>
+
+        <%= ff.label :cnpj, "CNPJ:" %>
+        <%= ff.text_field :cnpj %><br/>
+
+        <%= ff.label :telephone1, "Telefone 1:" %>
+        <%= ff.text_field :telephone1 %><br/>
+
+        <%= ff.label :telephone2, "Telefone 2:" %>
+        <%= ff.text_field :telephone2 %><br/>
+
+        <%= ff.label :telephone3, "Telefone 3:" %>
+        <%= ff.text_field :telephone3 %><br/>
+
+        <%= ff.label :street_address, "Endereço:" %>
+        <%= ff.text_field :street_address %><br/>
+
+        <%= ff.label :number_address, "Número:" %>
+        <%= ff.text_field :number_address %><br/>
+
+        <%= ff.label :complement, "Complemento:" %>
+        <%= ff.text_field :complement %><br/>
+
+        <%= ff.label :zip_code, "CEP:" %>
+        <%= ff.text_field :zip_code %><br/>
+
+        <% states_array = @states.map { |state| [state.name, state.acronym] } %>
+        <%= ff.label :state_id, "Estado:" %>
+        <%= ff.select :state_id, options_for_select(states_array, @state_acronym) , {:prompt => 'Selecione'}, { :id => 'user_state'} %><br/>
+
+        <% cities_array = @cities.map { |city| [city.name, city.name] } %>
+        <%= ff.label :city_id, "Cidade:" %>
+        <%= ff.select :city_id, options_for_select(cities_array,  @city_name) , {:prompt => 'Selecione'}, { :id => 'user_city', :disabled => @user.store.nil? || @user.store.city.nil?} %><br/>
+
+        <% districts_array = @districts.map { |district| [district.name, district.name] } %>
+        <%= ff.label :district_id, "Bairro:" %>
+        <%= ff.select :district_id, options_for_select(districts_array,  @district_name) ,{:prompt => 'Selecione'}, { :id => 'user_district', :disabled =>  @user.store.nil? || @user.store.district.nil?} %><br/>
+
+
+    <% end %>
+
+    <%= recaptcha_tags %>
+
+    <%= f.submit "Salvar" %>
+
+<% end %>
+
+
+<%= link_to 'Voltar', root_path %>

@@ -85,5 +85,13 @@ $(document).ready(function() {
         $("#user_store_attributes_telephone3").inputmask('remove');
         $("#user_store_attributes_cnpj").inputmask('remove');
     });
+
+    $(".edit_user").submit(function()
+    {
+        $("#user_store_attributes_telephone1").inputmask('remove');
+        $("#user_store_attributes_telephone2").inputmask('remove');
+        $("#user_store_attributes_telephone3").inputmask('remove');
+        $("#user_store_attributes_cnpj").inputmask('remove');
+    });
 });
 

@@ -1,4 +1,5 @@
 class CnpjValidator < ActiveModel::EachValidator
+
   def validate_each(object, attribute, value)
     unless is_cnpj_valid?(value)
       object.errors[attribute] << (options[:message] || :msg_invalid_cnpj)
@@ -7,12 +8,12 @@ class CnpjValidator < ActiveModel::EachValidator
 
   private
 
+  NUMBER_DIGITS_CNPJ = 14
+
   ## algorithm source: http://www.macoratti.net/alg_cnpj.htm
   def is_cnpj_valid?(cnpj)
 
     if(cnpj.length == NUMBER_DIGITS_CNPJ)
-
-      binding.pry
 
       valid = true
 

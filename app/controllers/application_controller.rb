@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
   end
 
   def login_filter
-    binding.pry
     unless user_logged_in?
       render "index"
     else
@@ -43,7 +42,6 @@ class ApplicationController < ActionController::Base
   end
 
   def login
-    binding.pry
     unless user_logged_in?
       begin
         user_id = (User.authenticate(params[:username], params[:password])).id

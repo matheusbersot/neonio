@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  attr_accessible :name,:password, :password_confirmation, :email
+  attr_accessible :name,:password, :password_confirmation, :email, :store_attributes
 
   #########  Relationships ###########
 
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   #########  Validations ###########
 
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 8 }
+  validates :password, length: { minimum: 8 }, :if => lambda{ new_record? || !password.nil? }
   validates :email, presence: true
 
   validates :profile, presence: true
